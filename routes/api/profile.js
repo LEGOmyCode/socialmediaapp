@@ -156,5 +156,50 @@ router.put(
     }
   }
 );
+//Delete Exp from the user profile
+router.delete("/experience/:exp_id", auth, async (req, res) => {
+  try {
+    const foundProfile = await Profile.findOne({ user: req.user.id });
 
+    foundProfile.experience = foundProfile.experience.filter(
+      (exp) => exp._id.toString() !== req.params.exp_id
+    );
+
+    await foundProfile.save();
+    return res.status(200).json(foundProfile);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ msg: "Server error" });
+  }
+});
+//Delete education from user profile
+router.put(
+  "/education",
+  auth,
+  check("school", "School is required").notEmpty(),
+  check("degree", "Degree is required").notEmpty(),
+  check("fieldofstudy", "Field of study is required").notEmpty(),
+  check("from", "From date is required and needs to be from the past")
+    .notEmpty()
+    .custom((value, { req }) => (req.body.to ? value < req.body.to : true)),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      const profile = await Profile.findOne({ user: req.user.id });
+
+      profile.education.unshift(req.body);
+
+      await profile.save();
+
+      res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
 module.exports = router;
