@@ -1,25 +1,26 @@
 import React from "react";
 
-export const Landing = () => {
+const Landing = () => {
   return (
-    <section className="landing">
-      <div className="dark-overlay">
-        <div className="landing-inner">
-          <h1 className="x-large">SocialApp</h1>
-          <p className="lead">
-            Create a developer profile/portfolio, share posts and get help from
-            other developers
-          </p>
-          <div className="buttons">
-            <Link to="/register" className="btn btn-primary">
-              Sign Up
-            </Link>
-            <Link to="/login" className="btn btn-light">
-              Login
-            </Link>
-          </div>
-        </div>
-      </div>
-    </section>
+    <nav class="navbar bg-dark">
+      <h1>
+        <a href="index.html">
+          <i class="fas fa-code"></i> Social App
+        </a>
+      </h1>
+      <ul>
+        <li>
+          <a href="profiles.html">Developers</a>
+        </li>
+        <li>
+          <a href="register.html">Register</a>
+        </li>
+        <li>
+          <a href="login.html">Login</a>
+        </li>
+      </ul>
+    </nav>
   );
 };
+
+export default Landing;

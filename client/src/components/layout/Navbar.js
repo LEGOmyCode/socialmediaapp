@@ -1,24 +1,7 @@
 import React from "react";
 
-export const Navbar = () => {
-  return (
-    <nav className="navbar bg-dark">
-      <h1>
-        <a href="index.html">
-          <i classname="fas fa-code"></i>SocialApp
-        </a>
-      </h1>
-      <ul>
-        <li>
-          <a href="profiles.html">Developer</a>
-        </li>
-        <li>
-          <a href="register.html">Register</a>
-        </li>
-        <li>
-          <a href="login.html">Login</a>
-        </li>
-      </ul>
-    </nav>
-  );
+const Navbar = () => {
+  return <div>Navbar</div>;
 };
+
+export default Navbar;
