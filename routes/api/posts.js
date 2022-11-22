@@ -65,7 +65,7 @@ router.get("/:id", auth, checkObjectId("id"), async (req, res) => {
   }
 });
 
-//Delete post
+//Delete post by user Id
 router.delete("/:id", [auth, checkObjectId("id")], async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
@@ -88,4 +88,26 @@ router.delete("/:id", [auth, checkObjectId("id")], async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
+//Like a post
+router.put("/like/:id", auth, checkObjectId("id"), async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+
+    // Check if the post has already been liked
+    if (post.likes.some((like) => like.user.toString() === req.user.id)) {
+      return res.status(400).json({ msg: "Post already liked" });
+    }
+
+    post.likes.unshift({ user: req.user.id });
+
+    await post.save();
+
+    return res.json(post.likes);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 module.exports = router;
