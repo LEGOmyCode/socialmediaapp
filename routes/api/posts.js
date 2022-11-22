@@ -5,4 +5,4 @@ router.get("/", (req, res) => {
   res.send("Post route");
 });
 
-module.export = router;
+module.exports = router;

@@ -42,7 +42,6 @@ router.post(
       twitter,
       instagram,
       linkedin,
-      facebook,
       // spread the rest of the fields we don't need to check
       ...rest
     } = req.body;
@@ -85,4 +84,4 @@ router.post(
   }
 );
 
-module.export = router;
+module.exports = router;
